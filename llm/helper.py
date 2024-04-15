@@ -66,16 +66,16 @@ def render_token(t: bytes) -> str:
     s = replace_control_characters(s)
     return s
 
-def save_trained_tokenizer(pattern, vocab, merges):
+def save_trained_tokenizer(pattern, vocab, merges, model_path = "../models/minGPT.model", vocab_path = "../models/minGPT.vocab"):
     
-    model_file = "../model/minGPT.model"
+    model_file = model_path
     with open(model_file, 'w') as f:
         f.write("minbpe v1\n")
         f.write(f"{pattern}\n")
         for idx1, idx2 in merges:
             f.write(f"{idx1} {idx2}\n")
     
-    vocab_file =  "../model/minGPT.vocab"
+    vocab_file =  vocab_path
     inverted_merges = {idx: pair for pair, idx in merges.items()}
     with open(vocab_file, "w", encoding="utf-8") as f:
         for idx, token in vocab.items():
@@ -91,11 +91,11 @@ def save_trained_tokenizer(pattern, vocab, merges):
         
     print("Successfully saved the trained tokenizer")
         
-def load_trained_tokenizer():
+def load_trained_tokenizer(fp = "../models/minGPT.model"):
     merges = {}
     special_tokens = {}
     idx = 256
-    model_file = "../model/minGPT.model"
+    model_file = fp
     with open(model_file, 'r', encoding="utf-8") as f:
         # read the version
         version = f.readline().strip()

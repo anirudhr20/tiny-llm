@@ -21,7 +21,7 @@ class SelfAttention(nn.Module):
         
         wei = q@k.transpose(2,1) # (B, T, T)
         wei = wei / self.head_size**-0.5
-        tril = torch.tril(torch.ones(T,T))
+        tril = torch.tril(torch.ones(T,T)).to(x.device)
         wei = wei.masked_fill(tril == 0, float('-inf'))
         wei = F.softmax(wei, dim=-1)
         wei = self.dropout(wei)

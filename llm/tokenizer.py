@@ -4,17 +4,17 @@ from collections import defaultdict
 from .helper import get_token_pair_count, merge_token_pairs, save_trained_tokenizer, load_trained_tokenizer
 
 class TinyTokenizer:
-    def __init__(self, train=False) -> None:
+    def __init__(self, train=False, model_path = "../models/minGPT.model") -> None:
         if train:
             self.merges = {}
             self.vocab = {}
             self.pattern =  r"""'(?i:[sdmt]|ll|ve|re)|[^\r\n\p{L}\p{N}]?+\p{L}+|\p{N}{1,3}| ?[^\s\p{L}\p{N}]++[\r\n]*|\s*[\r\n]|\s+(?!\S)|\s+"""
         else:
-            self.pattern, self.vocab, self.merges = load_trained_tokenizer()
+            self.pattern, self.vocab, self.merges = load_trained_tokenizer(fp=model_path)
             
         self.compiled_pattern = re.compile(self.pattern)
 
-    def train(self, text:str, vocab_size:int, verbose:bool = False):
+    def train(self, text:str, vocab_size:int, verbose:bool = False, model_path = "../models/minGPT.model", vocab_path = "../models/minGPT.vocab"):
         """This method is used to train basic tokenizer wherein all the token ids are merged together
 
         Args:
@@ -43,7 +43,7 @@ class TinyTokenizer:
         self.vocab = vocab
         self.merges = merges
 
-        save_trained_tokenizer(self.pattern, self.vocab, self.merges)
+        save_trained_tokenizer(self.pattern, self.vocab, self.merges, model_path, vocab_path)
 
 
     
