@@ -1,0 +1,24 @@
+# Following tasks need to be completed
+- Data Exploration 
+    - Explore how the predictions should be made i.e. using the given context predict the next token. This can be handeled through prev_token -> curr_token. There needs to be a specific context length like past 8 tokens
+    - Checkout how do you perform data handling i.e. data batching and performing batch operations.
+- Model Exploration
+    - Checkout by writing a main LLM class and just use the embedding layer 
+    - Write boiler plate code for generation of tokens
+    - Write the code for training on batches of data and see if the loss decreases
+- Attention
+    - Experiment how you want to look at attention - I feel attention looks like the weighted average of the previous tokens.
+    - Matrix way of achieving it
+    - Perform matrix multiplication using softmax for averaging
+    - Implement self attention
+- Layer normalization
+    - Implement Basic layer normalization and experient with it
+    - Now complete class-wise implementation of layernorm1d
+- Full Multi headed Attention Block Implementation
+    - First experimentation of the basic focus
+    - Complete class-wise implementation
+ 
+- Decoder Implementation
+- Complete LM implementation
+- Implement the training loop 
+- Implement the inference
